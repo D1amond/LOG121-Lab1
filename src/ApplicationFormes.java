@@ -1,16 +1,26 @@
-package gui;
 /******************************************************
-Cours:  LOG121
-Projet: Squelette du laboratoire #1
-Nom du fichier: ApplicationFormes.java
-Date créé: 2013-05-03
+Cours : LOG121
+Session : A2014
+Groupe : 03
+Projet : Laboratoire #1
+Étudiant(e)(s) : Frédéric Bourdeau
+Code(s) perm. : BOUF10069403
+Chargé de cours : Dominic St‐Jacques
+Chargés de labo : Alvine Boaye Belle et Jean‐Nicola Blanchet
+Nom du fichier : ApplicationFormes.java
+Date créé : 2014‐09‐08
+Date dern. modif. 2014‐09‐09
 *******************************************************
 Historique des modifications
 *******************************************************
 *@author Patrice Boucher
-2013-05-03 Version initiale
-*******************************************************/  
- 
+2013/05/04 Version initiale
+*@author Frédéric Bourdeau
+2014‐09‐11 Deplacer le fichier dans le package par défaut
+*******************************************************/
+
+import gui.CommBase;
+import gui.FenetrePrincipale;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
