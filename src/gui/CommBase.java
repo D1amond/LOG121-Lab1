@@ -9,6 +9,8 @@ Historique des modifications
 *******************************************************
 *@author Patrice Boucher
 2013-05-03 Version initiale
+*@author Frédéric Bourdeau
+2014-09-16 Ajout Hôte et Port; Prototype de connexion
 *******************************************************/  
 
 import java.beans.PropertyChangeListener;
@@ -23,7 +25,7 @@ import javax.swing.SwingWorker;
 import exceptions.EntreeInvalideException;
 
 /**
- * Base d'une communication via un fil d'exÃ©cution parallÃ¨le.
+ * Base d'une communication via un fil d'exécution parallèle.
  */
 public class CommBase {
 	

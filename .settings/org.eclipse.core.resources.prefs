@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/ApplicationFormes.java=UTF-8
+encoding//src/exceptions/EntreeInvalideException.java=UTF-8
 encoding//src/formes/Carre.java=UTF-8
 encoding//src/formes/Cercle.java=UTF-8
 encoding//src/formes/Forme.java=UTF-8
