@@ -9,12 +9,16 @@ Historique des modifications
 *******************************************************
 *@author Patrice Boucher
 2013-05-03 Version initiale
-*@author Frédéric Bourdeau
-2014-09-16 Ajout Hôte et Port; Prototype de connexion
+*@author Frï¿½dï¿½ric Bourdeau
+2014-09-16 Ajout Hï¿½te et Port; Prototype de connexion
 *******************************************************/  
 
 import java.beans.PropertyChangeListener;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,7 +29,7 @@ import javax.swing.SwingWorker;
 import exceptions.EntreeInvalideException;
 
 /**
- * Base d'une communication via un fil d'exécution parallèle.
+ * Base d'une communication via un fil d'exï¿½cution parallï¿½le.
  */
 public class CommBase {
 	
@@ -37,6 +41,7 @@ public class CommBase {
 	private boolean isActif = false;
 	private String host = "";
 	private int port = 0;
+	private String hostAndPort = "";
 	
 	/**
 	 * Constructeur
@@ -45,7 +50,7 @@ public class CommBase {
 	}
 	
 	/**
-	 * Définir le récepteur de l'information reçue dans la communication avec le serveur
+	 * Dï¿½finir le rï¿½cepteur de l'information reï¿½ue dans la communication avec le serveur
 	 * @param listener sera alertÃ© lors de l'appel de "firePropertyChanger" par le SwingWorker
 	 */
 	public void setPropertyChangeListener(PropertyChangeListener listener){
@@ -69,25 +74,42 @@ public class CommBase {
 	}
 	
 	/**
-	 * Créer le nécessaire pour la communication avec le serveur
+	 * Crï¿½er le nï¿½cessaire pour la communication avec le serveur
 	 */
 	protected void creerCommunication(){		
-		// Crée un fil d'exécusion parallèle au fil courant,
+		// Crï¿½e un fil d'exï¿½cusion parallï¿½le au fil courant,
 		threadComm = new SwingWorker(){
 			@Override
 			protected Object doInBackground() throws Exception {
-				System.out.println("Le fils d'execution parallele est lance");
+				System.out.println("Le fils d'execution parallele est lance!");
+				Socket client = null;
+				OutputStream outToServer = null;
+		        InputStream inFromServer = null;
+		        DataOutputStream out = null;
+		        DataInputStream in = null;
+				try {
+					client = new Socket(getHost(), getPort());
+					outToServer = client.getOutputStream();
+			        inFromServer = client.getInputStream();
+			        System.out.println("Connexion!");
+			        out = new DataOutputStream(outToServer);
+			        in = new DataInputStream(inFromServer);
+				} catch (Exception e) {
+					System.out.println(e);
+				}
 				while(true){
 					Thread.sleep(DELAI);
 					
-					Socket MyClient;
 					try {
-						MyClient = new Socket(getHost(), getPort());
-					} catch (IOException e) {
+				        out.writeUTF("GET");
+				        System.out.println("Client envoie GET.");
+				        System.out.println("Serveur retourne: " + in.readUTF());
+					} catch (Exception e) {
 						System.out.println(e);
+						client.close();
 					}
 
- 					//La méthode suivante alerte l'observateur 
+ 					//La mï¿½thode suivante alerte l'observateur 
 					if(listener!=null)
 					   firePropertyChange("ENVOIE-TEST", null, (Object) "."); 
 				}
@@ -95,7 +117,7 @@ public class CommBase {
 			}
 		};
 		if(listener!=null)
-		   threadComm.addPropertyChangeListener(listener); // La méthode "propertyChange" de ApplicationFormes sera donc appelÃ©e lorsque le SwinkWorker invoquera la mÃ©thode "firePropertyChanger" 		
+		   threadComm.addPropertyChangeListener(listener); // La mï¿½thode "propertyChange" de ApplicationFormes sera donc appelÃ©e lorsque le SwinkWorker invoquera la mÃ©thode "firePropertyChanger" 		
 		threadComm.execute(); // Lance le fil d'exÃ©cution parallÃ¨le.
 		isActif = true;
 	}
@@ -108,7 +130,7 @@ public class CommBase {
 	}
 	
 	/**
-	 * @return l'hôte extrait de la chaîne de caractères entrée par l'utilisateur
+	 * @return l'hï¿½te extrait de la chaï¿½ne de caractï¿½res entrï¿½e par l'utilisateur
 	 */
 	private String getHost() {
 		if (this.host.length() == 0) {
@@ -123,7 +145,7 @@ public class CommBase {
 	}
 	
 	/**
-	 * @return l'hôte extrait de la chaîne de caractères entrée par l'utilisateur
+	 * @return l'hï¿½te extrait de la chaï¿½ne de caractï¿½res entrï¿½e par l'utilisateur
 	 */
 	private int getPort() {
 		if (this.port == 0) {
@@ -139,7 +161,7 @@ public class CommBase {
 	
 	/**
 	 * @param pattern
-	 * @return la sous-chaîne de caractères recherchée
+	 * @return la sous-chaï¿½ne de caractï¿½res recherchï¿½e
 	 * @throws EntreeInvalideException
 	 */
 	private String findMatch(Pattern pattern) throws EntreeInvalideException {
@@ -147,7 +169,7 @@ public class CommBase {
 		Matcher matcher = pattern.matcher(this.getHostAndPort());
 		boolean result = matcher.find();
 		if (result) {
-			match = matcher.group(1);
+			match = matcher.group(0);
 		}
 		if (match.length() == 0) {
 			throw new exceptions.EntreeInvalideException();
@@ -156,14 +178,11 @@ public class CommBase {
 	}
 	
 	/**
-	 * @return l'hôte et le port sous la forme "hôte:port"
+	 * @return l'hï¿½te et le port sous la forme "hï¿½te:port"
 	 */
 	private String getHostAndPort() {
-		String hostAndPort = "";
-		if (this.host.length() == 0 || this.port == 0) {
-			hostAndPort = JOptionPane.showInputDialog("Quel est le nom d'hôte et le port du serveur de formes?");
-		} else {
-			hostAndPort = this.host + ":" + this.port;
+		if (hostAndPort.length() == 0) {
+			hostAndPort = JOptionPane.showInputDialog("Quel est le nom d'hï¿½te et le port du serveur de formes?");
 		}
 		return hostAndPort;
 	}
