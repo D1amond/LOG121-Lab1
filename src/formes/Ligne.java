@@ -1,5 +1,7 @@
 package formes;
 
+import java.util.ArrayList;
+
 /******************************************************
 Cours : LOG121
 Session : A2014
@@ -34,8 +36,8 @@ public class Ligne extends Forme {
 	/**
 	 * Constructeur
 	 */
-	public Ligne() {
-		//@todo quelque chose...
+	public Ligne(String nseq) {
+		super(nseq);
 	}
 	
 	/**
@@ -103,9 +105,9 @@ public class Ligne extends Forme {
 	}
 
 	@Override
-	public String getRegex() {
+	public void initCoordonnees(ArrayList<Integer> listePoint) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 	
 }

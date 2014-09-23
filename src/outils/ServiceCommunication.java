@@ -33,12 +33,14 @@ public class ServiceCommunication {
 	private final int DELAI = 1000;
 	private final String HOST_REGEX = "\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|localhost";
 	private final String PORT_REGEX = "(?<=:)(6553[0-5]|655[0-2][0-9]\\d|65[0-4](\\d){2}|6[0-4](\\d){3}|[1-5](\\d){4}|[1-9](\\d){0,3})";
-	private SwingWorker threadComm =null;
+	
+	private SwingWorker threadComm = null;
 	private PropertyChangeListener listener = null;
+	private GenerateurForme generateur;
 	private boolean isActif = false;
+	private String hostAndPort = "";
 	private String host = "";
 	private int port = 0;
-	private String hostAndPort = "";
 	
 	private Socket client = null;
 	private PrintWriter out = null;
@@ -97,18 +99,18 @@ public class ServiceCommunication {
 					try {
 				        out.println("GET");
 				        System.out.println("Client envoie GET.");
-				        System.out.println("Serveur retourne: " + in.readLine());
+				        in.readLine(); //Retire le "commande>" envoye par le serveur. Pourrait etre remplace par regex
+				        String reponse = in.readLine();
+				        generateur.generer(reponse);
+				        
+	 					//La m�thode suivante alerte l'observateur 
+						if (listener != null) {
+							firePropertyChange("ENVOIE-FORME", null, (Object) reponse);
+						}
 					} catch (Exception e) {
 						System.out.println(e);
 					}
-
- 					//La m�thode suivante alerte l'observateur 
-					if (listener != null) {
-						System.out.println("Client envoie GET.");
-						firePropertyChange("ENVOIE-TEST", null, (Object) ".");
-					}
 				}
-				//return null;
 			}
 		};
 		if (listener != null)
@@ -122,6 +124,10 @@ public class ServiceCommunication {
 	 */
 	public boolean isActif() {
 		return isActif;
+	}
+	
+	public void setGenerateur(GenerateurForme generateur) {
+		this.generateur = generateur;
 	}
 	
 	private void listenSocket() {
@@ -195,4 +201,5 @@ public class ServiceCommunication {
 		}
 		return hostAndPort;
 	}
+
 }

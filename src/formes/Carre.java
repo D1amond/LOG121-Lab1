@@ -30,8 +30,8 @@ public class Carre extends Rectangle {
 	/**
 	 * Constructeur
 	 */
-	public Carre() {
-		//@todo quelque chose...
+	public Carre(String nseq) {
+		super(nseq);
 	}
 	
 }

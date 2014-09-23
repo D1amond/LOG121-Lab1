@@ -1,5 +1,7 @@
 package formes;
 
+import java.util.ArrayList;
+
 /******************************************************
 Cours : LOG121
 Session : A2014
@@ -26,24 +28,21 @@ Historique des modifications
  */
 public abstract class Forme {
 
-	private int nseq;
+	private String nseq;
 	
-	/**
-	 * @return Expression reguliere de la forme
-	 */
-	public abstract String getRegex();
+	public abstract void initCoordonnees(ArrayList<Integer> listePoint);
 	
 	/**
 	 * Constructeur
 	 */
-	public Forme() {
-		//@todo quelque chose...
+	public Forme(String nseq) {
+		setNseq(nseq);
 	}
 	
 	/**
 	 * @return Numéro de séquence
 	 */
-	public int getNseq() {
+	public String getNseq() {
 		return this.nseq;
 	}
 	
@@ -51,7 +50,7 @@ public abstract class Forme {
 	 * @param nseq
 	 * @return La Forme courante
 	 */
-	public Forme setNseq(int nseq) {
+	public Forme setNseq(String nseq) {
 		this.nseq = nseq;
 		return this;
 	}

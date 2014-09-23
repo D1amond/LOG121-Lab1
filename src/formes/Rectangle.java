@@ -1,5 +1,7 @@
 package formes;
 
+import java.util.ArrayList;
+
 /******************************************************
 Cours : LOG121
 Session : A2014
@@ -34,8 +36,8 @@ public class Rectangle extends Forme {
 	/**
 	 * Constructeur
 	 */
-	public Rectangle() {
-		//@todo quelque chose...
+	public Rectangle(String nseq) {
+		super(nseq);
 	}
 	
 	/**
@@ -103,9 +105,9 @@ public class Rectangle extends Forme {
 	}
 
 	@Override
-	public String getRegex() {
+	public void initCoordonnees(ArrayList<Integer> listePoint) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 	
 }
