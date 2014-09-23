@@ -16,6 +16,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.JFrame;
+
+import outils.ServiceCommunication;
  
 /**
  * Cette classe représente la fenêtre principale de l'application 
@@ -29,7 +31,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 	/**
 	 * Constructeur
 	 */
-	public FenetrePrincipale(CommBase comm){
+	public FenetrePrincipale(ServiceCommunication comm){
 		
 		MenuFenetre menu = new MenuFenetre(comm);
 		this.setLayout(new BorderLayout());

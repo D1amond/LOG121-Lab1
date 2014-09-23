@@ -101,5 +101,11 @@ public class Ligne extends Forme {
 		this.y2 = y2;
 		return this;
 	}
+
+	@Override
+	public String getRegex() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

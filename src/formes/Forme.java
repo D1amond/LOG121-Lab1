@@ -29,6 +29,11 @@ public abstract class Forme {
 	private int nseq;
 	
 	/**
+	 * @return Expression reguliere de la forme
+	 */
+	public abstract String getRegex();
+	
+	/**
 	 * Constructeur
 	 */
 	public Forme() {

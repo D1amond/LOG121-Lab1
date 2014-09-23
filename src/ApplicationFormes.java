@@ -19,11 +19,12 @@ Historique des modifications
 2014‐09‐11 Deplacer le fichier dans le package par défaut
 *******************************************************/
 
-import gui.CommBase;
 import gui.FenetrePrincipale;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
+import outils.ServiceCommunication;
 
 /**
  * Cette classe représente l'application dans son ensemble. 
@@ -44,7 +45,7 @@ public class ApplicationFormes{
 	 * Constructeur
 	 */
 	public ApplicationFormes(){
-		CommBase comm = new CommBase();
+		ServiceCommunication comm = new ServiceCommunication();
 		FenetrePrincipale fenetre = new FenetrePrincipale(comm);
 		comm.setPropertyChangeListener(fenetre);
 	}

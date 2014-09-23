@@ -101,5 +101,11 @@ public class Ovale extends Forme {
 		this.rayonV = rayonV;
 		return this;
 	}
+
+	@Override
+	public String getRegex() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

@@ -84,5 +84,11 @@ public class Cercle extends Forme {
 		this.rayon = rayon;
 		return this;
 	}
+
+	@Override
+	public String getRegex() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

@@ -1,4 +1,4 @@
-package gui;
+package outils;
 /******************************************************
 Cours:  LOG121
 Projet: Squelette du laboratoire #1
@@ -11,6 +11,7 @@ Historique des modifications
 2013-05-03 Version initiale
 *@author Fr�d�ric Bourdeau
 2014-09-16 Ajout H�te et Port; Prototype de connexion
+2014-09-23 Connexion et communication serveur fonctionnelle
 *******************************************************/  
 
 import java.beans.PropertyChangeListener;
@@ -27,7 +28,7 @@ import exceptions.EntreeInvalideException;
 /**
  * Base d'une communication via un fil d'ex�cution parall�le.
  */
-public class CommBase {
+public class ServiceCommunication {
 	
 	private final int DELAI = 1000;
 	private final String HOST_REGEX = "\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|localhost";
@@ -46,7 +47,7 @@ public class CommBase {
 	/**
 	 * Constructeur
 	 */
-	public CommBase(){
+	public ServiceCommunication(){
 	}
 	
 	/**
@@ -102,13 +103,15 @@ public class CommBase {
 					}
 
  					//La m�thode suivante alerte l'observateur 
-					if(listener!=null)
-					   firePropertyChange("ENVOIE-TEST", null, (Object) "."); 
+					if (listener != null) {
+						System.out.println("Client envoie GET.");
+						firePropertyChange("ENVOIE-TEST", null, (Object) ".");
+					}
 				}
 				//return null;
 			}
 		};
-		if(listener!=null)
+		if (listener != null)
 		   threadComm.addPropertyChangeListener(listener); // La m�thode "propertyChange" de ApplicationFormes sera donc appelée lorsque le SwinkWorker invoquera la méthode "firePropertyChanger" 		
 		threadComm.execute(); // Lance le fil d'exécution parallèle.
 		isActif = true;
@@ -117,7 +120,7 @@ public class CommBase {
 	/**
 	 * @return si le fil d'exécution parallèle est actif
 	 */
-	public boolean isActif(){
+	public boolean isActif() {
 		return isActif;
 	}
 	
@@ -181,6 +184,9 @@ public class CommBase {
 	}
 	
 	/**
+	 * Si ce n'est pas deja fait, demande a l'utilisateur
+	 * l'hote et le port du serveur de forme
+	 * 
 	 * @return l'h�te et le port sous la forme "h�te:port"
 	 */
 	private String getHostAndPort() {

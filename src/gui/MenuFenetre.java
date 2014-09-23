@@ -14,11 +14,15 @@ Historique des modifications
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+
+import config.LangueConfig;
+import outils.ServiceCommunication;
 
 /**
  * Crée le menu de la fenêtre de l'applicationé
@@ -45,12 +49,12 @@ public class MenuFenetre extends JMenuBar{
 	private JMenuItem arreterMenuItem, demarrerMenuItem;
 	private static final int DELAI_QUITTER_MSEC = 200;
  	   
-	CommBase comm; // Pour activer/désactiver la communication avec le serveur
+	ServiceCommunication comm; // Pour activer/désactiver la communication avec le serveur
 	
 	/**
 	 * Constructeur
 	 */
-	public MenuFenetre(CommBase comm) {
+	public MenuFenetre(ServiceCommunication comm) {
 		this.comm = comm;
 		addMenuDessiner();
 		addMenuFichier();
