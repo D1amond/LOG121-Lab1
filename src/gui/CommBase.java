@@ -14,11 +14,7 @@ Historique des modifications
 *******************************************************/  
 
 import java.beans.PropertyChangeListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,6 +38,10 @@ public class CommBase {
 	private String host = "";
 	private int port = 0;
 	private String hostAndPort = "";
+	
+	private Socket client = null;
+	private PrintWriter out = null;
+	private BufferedReader in = null;
 	
 	/**
 	 * Constructeur
@@ -69,7 +69,15 @@ public class CommBase {
 	 */
 	public void stop(){
 		if(threadComm!=null)
-			threadComm.cancel(true); 
+			threadComm.cancel(true);
+		if(client != null && out != null) {
+			try {
+				out.println("END");
+				client.close();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
 		isActif = false;
 	}
 	
@@ -82,31 +90,15 @@ public class CommBase {
 			@Override
 			protected Object doInBackground() throws Exception {
 				System.out.println("Le fils d'execution parallele est lance!");
-				Socket client = null;
-				OutputStream outToServer = null;
-		        InputStream inFromServer = null;
-		        DataOutputStream out = null;
-		        DataInputStream in = null;
-				try {
-					client = new Socket(getHost(), getPort());
-					outToServer = client.getOutputStream();
-			        inFromServer = client.getInputStream();
-			        System.out.println("Connexion!");
-			        out = new DataOutputStream(outToServer);
-			        in = new DataInputStream(inFromServer);
-				} catch (Exception e) {
-					System.out.println(e);
-				}
+				listenSocket();
 				while(true){
 					Thread.sleep(DELAI);
-					
 					try {
-				        out.writeUTF("GET");
+				        out.println("GET");
 				        System.out.println("Client envoie GET.");
-				        System.out.println("Serveur retourne: " + in.readUTF());
+				        System.out.println("Serveur retourne: " + in.readLine());
 					} catch (Exception e) {
 						System.out.println(e);
-						client.close();
 					}
 
  					//La m�thode suivante alerte l'observateur 
@@ -127,6 +119,17 @@ public class CommBase {
 	 */
 	public boolean isActif(){
 		return isActif;
+	}
+	
+	private void listenSocket() {
+		try {
+			client = new Socket(getHost(), getPort());
+	        System.out.println("Connexion!");
+	        out =  new PrintWriter(client.getOutputStream(), true);
+	        in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 	
 	/**
