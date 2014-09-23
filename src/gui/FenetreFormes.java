@@ -44,7 +44,7 @@ public class FenetreFormes extends JComponent{
 	@Override 
 	public void paintComponent(Graphics g){
 		// Testing...
-		formes.Carre carre = new formes.Carre();
+		formes.Carre carre = new formes.Carre("12345");
 		carre.setX1(45).setY1(45).setX2(55).setY2(55);
 		
 		g.setColor(Color.blue);
