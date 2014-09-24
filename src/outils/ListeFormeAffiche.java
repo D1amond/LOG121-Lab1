@@ -35,16 +35,17 @@ public class ListeFormeAffiche extends Observable {
 		listeForme = new ArrayList<Forme>();
 	}
 	
-	public boolean ajouterForme(Forme forme) {
-		if (listeForme.size() >= LIMITE - 1) {
-			retirerForme(LIMITE - 2);
+	public void ajouterForme(Forme forme) {
+		if (listeForme.size() >= LIMITE) {
+			retirerForme(LIMITE - 1);
 		}
-		boolean succes = this.listeForme.add(forme);
-		if (succes) {
-			setChanged();  
-			notifyObservers();
+		if (listeForme.size() > 0) {
+			this.listeForme.add(this.listeForme.set(0, forme));
+		} else {
+			this.listeForme.add(forme);
 		}
-		return succes;
+		setChanged();  
+		notifyObservers();
 	}
 	
 	public Forme retirerForme(int position) {

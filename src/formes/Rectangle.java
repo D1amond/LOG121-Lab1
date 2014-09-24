@@ -120,4 +120,9 @@ public class Rectangle extends Forme {
 		g.fillRect(getX1(), getY1(), getX2(), getY2());
 	}
 	
+	@Override
+	public String toString() {
+		return "Rectangle " + getNseq() + " - " + getX1() + " " + getY1() + " " + getX2() + " " + getY2() + ";";
+	}
+	
 }

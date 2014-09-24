@@ -70,7 +70,7 @@ public class FenetreFormes extends JComponent implements Observer{
 	public void update(Observable arg0, Object arg1) {
 		System.out.println("test");
 		if (arg0 instanceof ListeFormeAffiche) {
-			System.out.println("FORME AJOUTÉE");
+			System.out.println("FORME AJOUTÉE: " + ((ListeFormeAffiche) arg0).getFormeAt(0) + " (" + ((ListeFormeAffiche) arg0).getListeForme().size() + ")");
 		}
 	}
 }
