@@ -21,6 +21,7 @@ import java.util.Observer;
 
 import javax.swing.JComponent;
 
+import formes.Forme;
 import outils.ListeFormeAffiche;
 
 /**
@@ -49,12 +50,9 @@ public class FenetreFormes extends JComponent implements Observer{
 	 */
 	@Override 
 	public void paintComponent(Graphics g){
-		// Testing...
-		formes.Carre carre = new formes.Carre("12345");
-		carre.setX1(45).setY1(45).setX2(55).setY2(55);
-		
-		g.setColor(Color.blue);
-		g.fillRect(carre.getX1(), carre.getY1(), carre.getX2(), carre.getY2());
+		for (Forme forme : liste.getListeForme()) {
+			forme.dessiner(g);
+		}
 	}
 	
 	/*
@@ -68,9 +66,9 @@ public class FenetreFormes extends JComponent implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		System.out.println("test");
 		if (arg0 instanceof ListeFormeAffiche) {
 			System.out.println("FORME AJOUTÉE: " + ((ListeFormeAffiche) arg0).getFormeAt(0) + " (" + ((ListeFormeAffiche) arg0).getListeForme().size() + ")");
 		}
+		repaint();
 	}
 }
