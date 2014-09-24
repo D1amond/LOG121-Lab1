@@ -1,5 +1,7 @@
 package formes;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 /******************************************************
@@ -106,8 +108,16 @@ public class Ovale extends Forme {
 
 	@Override
 	public void initCoordonnees(ArrayList<Integer> listePoint) {
-		// TODO Auto-generated method stub
-		
+		centreX = listePoint.get(0);
+		centreY = listePoint.get(1);
+		rayonH = listePoint.get(2);
+		rayonV = listePoint.get(3);
+	}
+
+	@Override
+	public void dessiner(Graphics g) {
+		g.setColor(Color.cyan);
+		g.fillOval(getCentreX(), getCentreY(), getRayonH(), getRayonV());
 	}
 	
 }

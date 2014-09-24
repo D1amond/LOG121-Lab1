@@ -1,5 +1,6 @@
 package formes;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 /******************************************************
@@ -31,6 +32,7 @@ public abstract class Forme {
 	private String nseq;
 	
 	public abstract void initCoordonnees(ArrayList<Integer> listePoint);
+	public abstract void dessiner(Graphics g);
 	
 	/**
 	 * Constructeur

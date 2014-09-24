@@ -1,5 +1,7 @@
 package formes;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 /******************************************************
@@ -89,8 +91,15 @@ public class Cercle extends Forme {
 
 	@Override
 	public void initCoordonnees(ArrayList<Integer> listePoint) {
-		// TODO Auto-generated method stub
-		
+		centreX = listePoint.get(0);
+		centreY = listePoint.get(1);
+		rayon = listePoint.get(2);
+	}
+
+	@Override
+	public void dessiner(Graphics g) {
+		g.setColor(Color.red);
+		g.fillOval(getCentreX(), getCentreY(), getRayon(), getRayon());
 	}
 	
 }

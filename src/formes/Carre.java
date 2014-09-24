@@ -1,5 +1,8 @@
 package formes;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 /******************************************************
 Cours : LOG121
 Session : A2014
@@ -32,6 +35,12 @@ public class Carre extends Rectangle {
 	 */
 	public Carre(String nseq) {
 		super(nseq);
+	}
+
+	@Override
+	public void dessiner(Graphics g) {
+		g.setColor(Color.green);
+		g.fillRect(getX1(), getY1(), getX2(), getY2());
 	}
 	
 }

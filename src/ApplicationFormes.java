@@ -24,6 +24,8 @@ import gui.FenetrePrincipale;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import outils.GenerateurForme;
+import outils.ListeFormeAffiche;
 import outils.ServiceCommunication;
 
 /**
@@ -46,7 +48,13 @@ public class ApplicationFormes{
 	 */
 	public ApplicationFormes(){
 		ServiceCommunication comm = new ServiceCommunication();
-		FenetrePrincipale fenetre = new FenetrePrincipale(comm);
+		
+		GenerateurForme generateur = new GenerateurForme();
+		ListeFormeAffiche liste = new ListeFormeAffiche();
+		generateur.setListeFormeAffiche(liste);
+		comm.setGenerateur(generateur);
+		
+		FenetrePrincipale fenetre = new FenetrePrincipale(comm, liste);
 		comm.setPropertyChangeListener(fenetre);
 	}
 }

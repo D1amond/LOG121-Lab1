@@ -17,6 +17,7 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JFrame;
 
+import outils.ListeFormeAffiche;
 import outils.ServiceCommunication;
  
 /**
@@ -31,12 +32,13 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 	/**
 	 * Constructeur
 	 */
-	public FenetrePrincipale(ServiceCommunication comm){
+	public FenetrePrincipale(ServiceCommunication comm, ListeFormeAffiche liste){
 		
 		MenuFenetre menu = new MenuFenetre(comm);
 		this.setLayout(new BorderLayout());
 		this.add(menu, BorderLayout.NORTH); 
-		FenetreFormes fenetreFormes = new FenetreFormes();
+		FenetreFormes fenetreFormes = new FenetreFormes(liste);
+		liste.addObserver(fenetreFormes);
 		this.add(fenetreFormes, BorderLayout.CENTER); // Ajoute la fenêtre de forme à la fenètre principale
 		this.pack(); // Ajuste la dimension de la fenêtre principale selon celle de ses composants
 		this.setVisible(true); // Rend la fenêtre principale visible.

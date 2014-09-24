@@ -10,7 +10,8 @@ public class DecodeurChaine {
 
 	final private String REGEX_TYPE_FORME = "([A-Z])\\w+";
 	final private String REGEX_NSEQ = "([0-9])\\w+";
-	final private String REGEX_COORDONNEES = "";
+	final private String REGEX_COORDONNEES = "([0-9])\\w+";
+	final private int LIMITE_TAILLE_COORDONNEE = 3;
 	
 	public Forme decoder(String chaine) {
 		String type = getTypeForme(chaine);
@@ -35,7 +36,14 @@ public class DecodeurChaine {
 		ArrayList<Integer> listePoint = new ArrayList<Integer>();
 		Pattern pattern = Pattern.compile(REGEX_COORDONNEES);
 		Matcher matcher = pattern.matcher(chaine);
-		boolean result = matcher.find();
+		
+		while (matcher.find()) {
+			String coordonnee = matcher.group();
+			if (coordonnee.length() <= LIMITE_TAILLE_COORDONNEE) {
+				listePoint.add(Integer.parseInt(coordonnee));
+				System.out.println(coordonnee);
+			}
+	    }
 		
 		forme.initCoordonnees(listePoint);
 	}

@@ -1,7 +1,5 @@
 package outils;
 
-import formes.Forme;
-
 /******************************************************
 Cours : LOG121
 Session : A2014
@@ -20,6 +18,8 @@ Historique des modifications
 *@author Frédéric Bourdeau
 2014-09-23 Version initiale
 *******************************************************/
+
+import formes.Forme;
 
 public class GenerateurForme {
 	

@@ -1,5 +1,7 @@
 package formes;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 /******************************************************
@@ -106,8 +108,16 @@ public class Rectangle extends Forme {
 
 	@Override
 	public void initCoordonnees(ArrayList<Integer> listePoint) {
-		// TODO Auto-generated method stub
-		
+		x1 = listePoint.get(0);
+		y1 = listePoint.get(1);
+		x2 = listePoint.get(2);
+		y2 = listePoint.get(3);
+	}
+
+	@Override
+	public void dessiner(Graphics g) {
+		g.setColor(Color.blue);
+		g.fillRect(getX1(), getY1(), getX2(), getY2());
 	}
 	
 }

@@ -19,10 +19,13 @@ Historique des modifications
 2014-09-23 Version initiale
 *******************************************************/
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Observable;
+
 import formes.Forme;
 
-public class ListeFormeAffiche {
+public class ListeFormeAffiche extends Observable {
 
 	final private int LIMITE = 10;
 	
@@ -36,7 +39,12 @@ public class ListeFormeAffiche {
 		if (listeForme.size() >= LIMITE - 1) {
 			retirerForme(LIMITE - 2);
 		}
-		return this.listeForme.add(forme);
+		boolean succes = this.listeForme.add(forme);
+		if (succes) {
+			setChanged();  
+			notifyObservers();
+		}
+		return succes;
 	}
 	
 	public Forme retirerForme(int position) {
