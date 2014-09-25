@@ -20,6 +20,7 @@ Historique des modifications
 *******************************************************/
 
 import formes.Forme;
+import ca.etsmtl.log.util.IDLogger;
 
 public class GenerateurForme {
 	
@@ -32,6 +33,10 @@ public class GenerateurForme {
 
 	public void generer(String chaine) {
 		Forme forme = decodeur.decoder(chaine);
+		
+		IDLogger logger = IDLogger.getInstance();
+		logger.logID(Integer.parseInt(forme.getNseq()));
+		
 		liste.ajouterForme(forme);
 	}
 	
