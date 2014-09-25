@@ -15,12 +15,14 @@ Chargé de cours : Dominic St‐Jacques
 Chargés de labo : Alvine Boaye Belle et Jean‐Nicola Blanchet
 Nom du fichier : Cercle.java
 Date créé : 2014‐09‐11
-Date dern. modif. 2014‐09‐11
+Date dern. modif. 2014‐09‐25
 *******************************************************
 Historique des modifications
 *******************************************************
 *@author Frédéric Bourdeau
 2014-09-11 Version initiale
+2014-09-23 Ajout override des méthodes abstraites
+2014-09-25 Ajout override de toString()
 *******************************************************/
 
 /**
@@ -100,6 +102,11 @@ public class Cercle extends Forme {
 	public void dessiner(Graphics g) {
 		g.setColor(Color.red);
 		g.fillOval(getCentreX(), getCentreY(), getRayon(), getRayon());
+	}
+	
+	@Override
+	public String toString() {
+		return "Cercle " + getNseq() + " - " + getCentreX() + " " + getCentreY() + " " + getRayon() + ";";
 	}
 	
 }

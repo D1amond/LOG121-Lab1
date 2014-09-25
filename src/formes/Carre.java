@@ -14,13 +14,15 @@ Chargé de cours : Dominic St‐Jacques
 Chargés de labo : Alvine Boaye Belle et Jean‐Nicola Blanchet
 Nom du fichier : Carre.java
 Date créé : 2014‐09‐11
-Date dern. modif. 2014‐09‐11
+Date dern. modif. 2014‐09‐25
 *******************************************************
 Historique des modifications
 *******************************************************
 *@author Frédéric Bourdeau
 2014-09-11 Version initiale
 2014-09-12 Un carré est un rectangle
+2014-09-23 Ajout override des méthodes abstraites
+2014-09-25 Ajout override de toString()
 *******************************************************/
 
 /**
@@ -41,6 +43,11 @@ public class Carre extends Rectangle {
 	public void dessiner(Graphics g) {
 		g.setColor(Color.green);
 		g.fillRect(getX1(), getY1(), getX2(), getY2());
+	}
+	
+	@Override
+	public String toString() {
+		return "Carré " + getNseq() + " - " + getX1() + " " + getY1() + " " + getX2() + " " + getY2() + ";";
 	}
 	
 }

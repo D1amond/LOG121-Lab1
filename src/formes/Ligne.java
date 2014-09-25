@@ -15,12 +15,14 @@ Chargé de cours : Dominic St‐Jacques
 Chargés de labo : Alvine Boaye Belle et Jean‐Nicola Blanchet
 Nom du fichier : Ligne.java
 Date créé : 2014‐09‐11
-Date dern. modif. 2014‐09‐11
+Date dern. modif. 2014‐09‐25
 *******************************************************
 Historique des modifications
 *******************************************************
 *@author Frédéric Bourdeau
 2014-09-11 Version initiale
+2014-09-23 Ajout override des méthodes abstraites
+2014-09-25 Ajout override de toString()
 *******************************************************/
 
 /**
@@ -106,6 +108,9 @@ public class Ligne extends Forme {
 		return this;
 	}
 
+	/* (non-Javadoc)
+	 * @see formes.Forme#initCoordonnees(java.util.ArrayList)
+	 */
 	@Override
 	public void initCoordonnees(ArrayList<Integer> listePoint) {
 		x1 = listePoint.get(0);
@@ -114,10 +119,21 @@ public class Ligne extends Forme {
 		y2 = listePoint.get(3);
 	}
 
+	/* (non-Javadoc)
+	 * @see formes.Forme#dessiner(java.awt.Graphics)
+	 */
 	@Override
 	public void dessiner(Graphics g) {
 		g.setColor(Color.orange);
 		g.drawLine(getX1(), getY1(), getX2(), getY2());
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Ligne " + getNseq() + " - " + getX1() + " " + getY1() + " " + getX2() + " " + getY2() + ";";
 	}
 	
 }
