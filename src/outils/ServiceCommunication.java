@@ -12,6 +12,7 @@ Historique des modifications
 *@author Frï¿½dï¿½ric Bourdeau
 2014-09-16 Ajout Hï¿½te et Port; Prototype de connexion
 2014-09-23 Connexion et communication serveur fonctionnelle
+2014-09-24 Génération de la Javadoc manquante
 *******************************************************/  
 
 import java.beans.PropertyChangeListener;
@@ -101,6 +102,7 @@ public class ServiceCommunication {
 				        System.out.println("Client envoie GET.");
 				        in.readLine(); //Retire le "commande>" envoye par le serveur. Pourrait etre remplace par regex
 				        String reponse = in.readLine();
+				        System.out.println(reponse);
 				        generateur.generer(reponse);
 				        
 	 					//La mï¿½thode suivante alerte l'observateur 
@@ -126,15 +128,20 @@ public class ServiceCommunication {
 		return isActif;
 	}
 	
+	/**
+	 * @param le generateur de forme.
+	 */
 	public void setGenerateur(GenerateurForme generateur) {
 		this.generateur = generateur;
 	}
 	
+	/**
+	 * Créé la connexion avec le serveur de forme et initialise les objets de communication.
+	 */
 	private void listenSocket() {
 		try {
 			client = new Socket(getHost(), getPort());
-	        System.out.println("Connexion!");
-	        out =  new PrintWriter(client.getOutputStream(), true);
+	        out = new PrintWriter(client.getOutputStream(), true);
 	        in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 		} catch (Exception e) {
 			System.out.println(e);

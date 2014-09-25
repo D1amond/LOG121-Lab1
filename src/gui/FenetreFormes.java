@@ -11,11 +11,14 @@ Historique des modifications
 2013-05-03 Version initiale
 *@author Frï¿½dï¿½ric Bourdeau
 2014-09-11 Utilisation des constantes dans le constructeur de la Dimension
+2014-09-23 Retrait test d'affichage et ajout affichage des formes contenues dans la liste
+2014-09-24 Inversement de la liste lors de l'affichage pour toujours avoir la dernière forme en premier plan
 *******************************************************/  
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.Collections;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -50,9 +53,11 @@ public class FenetreFormes extends JComponent implements Observer{
 	 */
 	@Override 
 	public void paintComponent(Graphics g){
+		Collections.reverse(liste.getListeForme());
 		for (Forme forme : liste.getListeForme()) {
 			forme.dessiner(g);
 		}
+		Collections.reverse(liste.getListeForme());
 	}
 	
 	/*
@@ -64,6 +69,9 @@ public class FenetreFormes extends JComponent implements Observer{
 		return dimension;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		if (arg0 instanceof ListeFormeAffiche) {

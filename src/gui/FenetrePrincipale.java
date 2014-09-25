@@ -9,6 +9,8 @@ Historique des modifications
 *******************************************************
 *@author Patrice Boucher
 2013-05-03 Version initiale
+*@author Frédéric Bourdeau
+2014-09-23 Ajout de la référence à la liste de forme et création du lien Observateur
 *******************************************************/  
 
 import java.awt.BorderLayout;
@@ -50,7 +52,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 	public void propertyChange(PropertyChangeEvent arg0) {
 		
 		if(arg0.getPropertyName().equals("ENVOIE-FORME")){
-			System.out.println((String) arg0.getNewValue());
+			//System.out.println((String) arg0.getNewValue());
 		}
 	}
 }
