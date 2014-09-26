@@ -12,12 +12,13 @@ Historique des modifications
 *@author Frï¿½dï¿½ric Bourdeau
 2014-09-16 Ajout Hï¿½te et Port; Prototype de connexion
 2014-09-23 Connexion et communication serveur fonctionnelle
-2014-09-24 Génération de la Javadoc manquante
+2014-09-24 Gï¿½nï¿½ration de la Javadoc manquante
 *******************************************************/  
 
 import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -93,26 +94,32 @@ public class ServiceCommunication {
 		threadComm = new SwingWorker(){
 			@Override
 			protected Object doInBackground() throws Exception {
-				System.out.println("Le fils d'execution parallele est lance!");
-				listenSocket();
-				while(true){
-					Thread.sleep(DELAI);
-					try {
+				try {
+					System.out.println("Le fils d'execution parallele est lance!");
+					listenSocket();
+					while(client!= null){
+						Thread.sleep(DELAI);
 				        out.println("GET");
-				        System.out.println("Client envoie GET.");
-				        in.readLine(); //Retire le "commande>" envoye par le serveur. Pourrait etre remplace par regex
+				        
+				        //Retire le "commande>" envoye par le serveur. Pourrait etre remplace par regex
+				        in.readLine();
+				        
 				        String reponse = in.readLine();
 				        System.out.println(reponse);
 				        generateur.generer(reponse);
-				        
-	 					//La mï¿½thode suivante alerte l'observateur 
-						if (listener != null) {
-							firePropertyChange("ENVOIE-FORME", null, (Object) reponse);
-						}
-					} catch (Exception e) {
-						System.out.println(e);
 					}
+				} catch (EntreeInvalideException e) {
+					resetConnexion();
+					stop();
+				} catch (Exception e) {
+					System.out.println(e);
+					stop();
 				}
+				//La mï¿½thode suivante alerte l'observateur 
+				if (listener != null) {
+					firePropertyChange("ENVOIE-FORME", null, (Object) "update");
+				}
+				return null;
 			}
 		};
 		if (listener != null)
@@ -136,44 +143,40 @@ public class ServiceCommunication {
 	}
 	
 	/**
-	 * Créé la connexion avec le serveur de forme et initialise les objets de communication.
+	 * Crï¿½ï¿½ la connexion avec le serveur de forme et initialise les objets de communication.
+	 * @throws EntreeInvalideException 
+	 * @throws IOException 
+	 * @throws UnknownHostException 
+	 * @throws NumberFormatException 
 	 */
-	private void listenSocket() {
-		try {
-			client = new Socket(getHost(), getPort());
-	        out = new PrintWriter(client.getOutputStream(), true);
-	        in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+	private void listenSocket() throws NumberFormatException, UnknownHostException, IOException, EntreeInvalideException {
+		boolean succes = true;
+		client = new Socket(getHost(), getPort());
+        out = new PrintWriter(client.getOutputStream(), true);
+        in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 	}
 	
 	/**
 	 * @return l'hï¿½te extrait de la chaï¿½ne de caractï¿½res entrï¿½e par l'utilisateur
+	 * @throws EntreeInvalideException 
 	 */
-	private String getHost() {
+	private String getHost() throws EntreeInvalideException {
 		if (this.host.length() == 0) {
 			Pattern pattern = Pattern.compile(HOST_REGEX);
-			try {
-				this.host = findMatch(pattern);
-			} catch (EntreeInvalideException e) {
-				e.printStackTrace();
-			}
+			this.host = findMatch(pattern);
 		}
 		return this.host;
 	}
 	
 	/**
 	 * @return l'hï¿½te extrait de la chaï¿½ne de caractï¿½res entrï¿½e par l'utilisateur
+	 * @throws EntreeInvalideException 
+	 * @throws NumberFormatException 
 	 */
-	private int getPort() {
+	private int getPort() throws NumberFormatException, EntreeInvalideException {
 		if (this.port == 0) {
 			Pattern pattern = Pattern.compile(PORT_REGEX);
-			try {
-				this.port = Integer.parseInt(findMatch(pattern));
-			} catch (EntreeInvalideException e) {
-				e.printStackTrace();
-			}
+			this.port = Integer.parseInt(findMatch(pattern));
 		}
 		return this.port;
 	}
@@ -207,6 +210,15 @@ public class ServiceCommunication {
 			hostAndPort = JOptionPane.showInputDialog("Quel est le nom d'hï¿½te et le port du serveur de formes?");
 		}
 		return hostAndPort;
+	}
+	
+	/**
+	 * RÃ©initialise les variables relatives Ã  la connexion
+	 */
+	private void resetConnexion() {
+		hostAndPort = "";
+		host = "";
+		port = 0;
 	}
 
 }
