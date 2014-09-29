@@ -1,19 +1,27 @@
 package gui;
+
 /******************************************************
-Cours:  LOG121
-Projet: Squelette du laboratoire #1
-Nom du fichier: FenetreFormes.java
-Date créé: 2013-05-03
+Cours : LOG121
+Session : A2014
+Groupe : 03
+Projet : Laboratoire #1
+Étudiant(e)(s) : Frédéric Bourdeau
+Code(s) perm. : BOUF10069403
+Chargé de cours : Dominic St‐Jacques
+Chargés de labo : Alvine Boaye Belle et Jean‐Nicola Blanchet
+Nom du fichier : FenetreFormes.java
+Date créé : 2013-05-03
+Date dern. modif. 2014‐09‐24
 *******************************************************
 Historique des modifications
 *******************************************************
 *@author Patrice Boucher
 2013-05-03 Version initiale
-*@author Fr�d�ric Bourdeau
+*@author Frédéric Bourdeau
 2014-09-11 Utilisation des constantes dans le constructeur de la Dimension
 2014-09-23 Retrait test d'affichage et ajout affichage des formes contenues dans la liste
-2014-09-24 Inversement de la liste lors de l'affichage pour toujours avoir la derni�re forme en premier plan
-*******************************************************/  
+2014-09-24 Inversement de la liste lors de l'affichage pour toujours avoir la dernière forme en premier plan
+*******************************************************/
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,7 +36,7 @@ import formes.Forme;
 import outils.ListeFormeAffiche;
 
 /**
- * Cette fen�tre g�re l'affichage des formes 
+ * Cette fenêtre gère l'affichage des formes 
  * @author Patrice Boucher
  * @date 2013/05/04
  */
@@ -61,8 +69,8 @@ public class FenetreFormes extends JComponent implements Observer{
 	}
 	
 	/*
-	 * Le Layout qui utilise (contient) FenetreFormes doit r�server 
-	 * l'espace n�cessaire àson affichage
+	 * Le Layout qui utilise (contient) FenetreFormes doit rï¿½server 
+	 * l'espace nécessaire Ã son affichage
 	 */
 	@Override 
 	public Dimension getPreferredSize(){
@@ -71,12 +79,10 @@ public class FenetreFormes extends JComponent implements Observer{
 
 	/* (non-Javadoc)
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 * Lorsque déclenché, redéssine la fenêtre.
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		if (arg0 instanceof ListeFormeAffiche) {
-			System.out.println("FORME AJOUTÉE: " + ((ListeFormeAffiche) arg0).getFormeAt(0) + " (" + ((ListeFormeAffiche) arg0).getListeForme().size() + ")");
-		}
 		repaint();
 	}
 }

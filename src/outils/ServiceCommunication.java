@@ -39,11 +39,13 @@ public class ServiceCommunication {
 	private SwingWorker threadComm = null;
 	private PropertyChangeListener listener = null;
 	private GenerateurForme generateur;
+	
 	private boolean isActif = false;
-	private String hostAndPort = "";
+	private String saisie = "";
 	private String host = "";
 	private int port = 0;
 	
+	// Relatif au Socket
 	private Socket client = null;
 	private PrintWriter out = null;
 	private BufferedReader in = null;
@@ -101,7 +103,7 @@ public class ServiceCommunication {
 						Thread.sleep(DELAI);
 				        out.println("GET");
 				        
-				        //Retire le "commande>" envoye par le serveur. Pourrait etre remplace par regex
+				        //Retire le "commande>" envoye par le serveur. Pourrait être remplacé par regex
 				        in.readLine();
 				        
 				        String reponse = in.readLine();
@@ -188,7 +190,7 @@ public class ServiceCommunication {
 	 */
 	private String findMatch(Pattern pattern) throws EntreeInvalideException {
 		String match = "";
-		Matcher matcher = pattern.matcher(this.getHostAndPort());
+		Matcher matcher = pattern.matcher(this.getSaisie());
 		boolean result = matcher.find();
 		if (result) {
 			match = matcher.group(0);
@@ -205,18 +207,18 @@ public class ServiceCommunication {
 	 * 
 	 * @return l'hï¿½te et le port sous la forme "hï¿½te:port"
 	 */
-	private String getHostAndPort() {
-		if (hostAndPort.length() == 0) {
-			hostAndPort = JOptionPane.showInputDialog("Quel est le nom d'hï¿½te et le port du serveur de formes?");
+	private String getSaisie() {
+		if (saisie.length() == 0) {
+			saisie = JOptionPane.showInputDialog("Quel est le nom d'hï¿½te et le port du serveur de formes?");
 		}
-		return hostAndPort;
+		return saisie;
 	}
 	
 	/**
 	 * RÃ©initialise les variables relatives Ã  la connexion
 	 */
 	private void resetConnexion() {
-		hostAndPort = "";
+		saisie = "";
 		host = "";
 		port = 0;
 	}

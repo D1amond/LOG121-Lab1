@@ -1,17 +1,25 @@
 package gui;
+
 /******************************************************
-Cours:  LOG121
-Projet: Squelette du laboratoire #1
-Nom du fichier: FenetrePrincipale.java
-Date créé: 2013-05-03
+Cours : LOG121
+Session : A2014
+Groupe : 03
+Projet : Laboratoire #1
+Étudiant(e)(s) : Frédéric Bourdeau
+Code(s) perm. : BOUF10069403
+Chargé de cours : Dominic St‐Jacques
+Chargés de labo : Alvine Boaye Belle et Jean‐Nicola Blanchet
+Nom du fichier : FenetrePrincipale.java
+Date créé : 2013-05-03
+Date dern. modif. 2014‐09‐23
 *******************************************************
 Historique des modifications
 *******************************************************
 *@author Patrice Boucher
 2013-05-03 Version initiale
-*@author Fr�d�ric Bourdeau
-2014-09-23 Ajout de la r�f�rence � la liste de forme et cr�ation du lien Observateur
-*******************************************************/  
+*@author Frédéric Bourdeau
+2014-09-23 Ajout de la référence à la liste de forme et création du lien Observateur
+*******************************************************/
 
 import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
@@ -41,10 +49,10 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 		this.add(menu, BorderLayout.NORTH); 
 		FenetreFormes fenetreFormes = new FenetreFormes(liste);
 		liste.addObserver(fenetreFormes);
-		this.add(fenetreFormes, BorderLayout.CENTER); // Ajoute la fenêtre de forme à la fenètre principale
+		this.add(fenetreFormes, BorderLayout.CENTER); // Ajoute la fenêtre de forme à la fenêtre principale
 		this.pack(); // Ajuste la dimension de la fenêtre principale selon celle de ses composants
-		this.setVisible(true); // Rend la fenêtre principale visible.
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //... à réviser selon le comportement que vous désirez ...
+		this.setVisible(true); // Rend la fenÃªtre principale visible.
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //... À  réviser selon le comportement que vous désirez ...
 	}
 	
 	// Appelé lorsque le sujet lance "firePropertyChanger"
